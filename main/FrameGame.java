@@ -9,8 +9,9 @@ public class FrameGame extends JFrame
         this.setSize(400, 400);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.add(panelGame);
+        this.setLocationRelativeTo(null);
 
-        
+
         this.setVisible(true);
     }
 }

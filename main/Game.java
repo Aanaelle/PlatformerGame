@@ -8,5 +8,6 @@ public class Game
     {
         this.panelGame = new PanelGame();
         this.frameGame = new FrameGame(this.panelGame);
+        this.panelGame.requestFocus();
     }
 }

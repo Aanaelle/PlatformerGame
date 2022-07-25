@@ -23,6 +23,13 @@ public class KeyboardInputs implements KeyListener
         
     }
 
+    
+    @Override
+    public void keyReleased(KeyEvent e) {
+        
+        
+    }
+
     @Override
     public void keyPressed(KeyEvent e) 
     {
@@ -40,12 +47,15 @@ public class KeyboardInputs implements KeyListener
                 this.panelGame.changeXDelta(-5);
                 break;
         }
+
+        /*switch (e.getKeyCode())
+        {
+            case KeyEvent.VK_Z -> this.panelGame.changeYDelta(-5);
+            case KeyEvent.VK_S -> this.panelGame.changeYDelta(5);
+            case KeyEvent.VK_D -> this.panelGame.changeXDelta(5);
+            case KeyEvent.VK_Q -> this.panelGame.changeXDelta(-5);
+        }*/
       
     }
 
-    @Override
-    public void keyReleased(KeyEvent e) {
-        
-        
-    }
 }

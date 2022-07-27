@@ -5,23 +5,28 @@ import javax.swing.JPanel;
 import inputs.KeyboardInputs;
 import inputs.MouseInputs;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.util.Random;
 
 
 
 public class PanelGame extends JPanel
 {
     private MouseInputs mouseInputs;
-    private int xDelta = 100;
-    private int yDelta = 100;
-    private int xDir = 1;
-    private int yDir = 1;
+    private float xDelta = 100;
+    private float yDelta = 100;
+    private float xDir = 1f;
+    private float yDir = 1f;
 
-    private int frames = 0;
-    private long lastCheck =0;
+
+    private Color color = new Color(150,20,90);
+    private Random random;
 
     public PanelGame() 
     {
+        this.random = new Random();
+        
         this.mouseInputs = new MouseInputs(this);
         
         addKeyListener(new KeyboardInputs(this));
@@ -52,26 +57,42 @@ public class PanelGame extends JPanel
         super.paintComponent(g);
 
         updateRectangle();
+        g.setColor(this.color);
         
-        g.fillRect( xDelta, yDelta, 200, 50);
+        g.fillRect((int) xDelta,(int) yDelta, 200, 50);
 
-        frames++;
-        if(System.currentTimeMillis() - lastCheck >= 1000)
-        {
-            lastCheck = System.currentTimeMillis();
-            System.out.println("FPS : " + frames);
-            frames=0;
-        }
+        
 
-        repaint();
     }
 
     private void updateRectangle() 
     {
         this.xDelta += xDir;
-        if(this.xDelta > 400)
-            xDir = -1;
+        if(this.xDelta > 400 || xDelta < 0)
+        {
+            xDir *= -1;
+            this.color = this.getRndColor();
+        }
+            
+        
+        this.yDelta += yDir;
+        if(yDelta > 400 || yDelta < 0)
+        {
+            yDir *= -1;
+            this.color = this.getRndColor(); 
+        }
+           
 
-        this.yDelta++;
+       
+    }
+
+    private Color getRndColor() 
+    {
+        int r = this.random.nextInt(255);
+        int g = this.random.nextInt(255);
+        int b = this.random.nextInt(255);
+        
+
+        return new Color(r,g,b);
     }
 }

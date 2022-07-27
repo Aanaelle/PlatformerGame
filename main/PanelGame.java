@@ -1,13 +1,19 @@
 package main;
 
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+
+import java.io.IOException;
+import java.io.InputStream;
+
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import inputs.KeyboardInputs;
 import inputs.MouseInputs;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.util.Random;
+
 
 
 
@@ -16,22 +22,50 @@ public class PanelGame extends JPanel
     private MouseInputs mouseInputs;
     private float xDelta = 100;
     private float yDelta = 100;
-    private float xDir = 1f;
-    private float yDir = 1f;
 
-
-    private Color color = new Color(150,20,90);
-    private Random random;
+    private BufferedImage img;
+ 
 
     public PanelGame() 
-    {
-        this.random = new Random();
-        
+    {        
+        importImg();
+
+        //taille de la frame
+        setPanelSize();
+
+        //Inputs
         this.mouseInputs = new MouseInputs(this);
         
         addKeyListener(new KeyboardInputs(this));
         addMouseListener(this.mouseInputs);
         addMouseMotionListener(this.mouseInputs);
+
+        
+    }
+
+
+    private void importImg() 
+    {
+        InputStream is = getClass().getResourceAsStream("/res/player_sprites.png");
+
+        try {
+            img = ImageIO.read(is);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        
+    }
+
+
+    //gérer la taille de la frame par rapport à l'image
+    private void setPanelSize() 
+    {
+        Dimension size = new Dimension(1280,800);
+
+        setMinimumSize(size);
+        setPreferredSize(size);
+        setMaximumSize(size);
     }
 
     //méthode pour modifié les coordonnées du rectangle
@@ -56,43 +90,7 @@ public class PanelGame extends JPanel
     {
         super.paintComponent(g);
 
-        updateRectangle();
-        g.setColor(this.color);
-        
-        g.fillRect((int) xDelta,(int) yDelta, 200, 50);
+        g.drawImage(this.img, 0, 0, this);     
 
-        
-
-    }
-
-    private void updateRectangle() 
-    {
-        this.xDelta += xDir;
-        if(this.xDelta > 400 || xDelta < 0)
-        {
-            xDir *= -1;
-            this.color = this.getRndColor();
-        }
-            
-        
-        this.yDelta += yDir;
-        if(yDelta > 400 || yDelta < 0)
-        {
-            yDir *= -1;
-            this.color = this.getRndColor(); 
-        }
-           
-
-       
-    }
-
-    private Color getRndColor() 
-    {
-        int r = this.random.nextInt(255);
-        int g = this.random.nextInt(255);
-        int b = this.random.nextInt(255);
-        
-
-        return new Color(r,g,b);
     }
 }

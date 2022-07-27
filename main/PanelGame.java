@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.Buffer;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -24,6 +25,7 @@ public class PanelGame extends JPanel
     private float yDelta = 100;
 
     private BufferedImage img;
+    private BufferedImage subImg;
  
 
     public PanelGame() 
@@ -90,7 +92,8 @@ public class PanelGame extends JPanel
     {
         super.paintComponent(g);
 
-        g.drawImage(this.img, 0, 0, this);     
+        this.subImg = this.img.getSubimage(1*64, 8*40, 64, 40);
+        g.drawImage(this.subImg, (int) xDelta, (int) yDelta, 128, 80, this);     
 
     }
 }

@@ -25,12 +25,13 @@ public class PanelGame extends JPanel
     private float yDelta = 100;
 
     private BufferedImage img;
-    private BufferedImage subImg;
+    private BufferedImage[] idleAnim;
  
 
     public PanelGame() 
     {        
         importImg();
+        loadAnimations();
 
         //taille de la frame
         setPanelSize();
@@ -43,6 +44,14 @@ public class PanelGame extends JPanel
         addMouseMotionListener(this.mouseInputs);
 
         
+    }
+
+
+    private void loadAnimations() 
+    {
+        this.idleAnim = new BufferedImage[5];
+
+        for (int )
     }
 
 
@@ -98,7 +107,7 @@ public class PanelGame extends JPanel
     {
         super.paintComponent(g);
 
-        this.subImg = this.img.getSubimage(1*64, 8*40, 64, 40);
+        //this.subImg = this.img.getSubimage(1*64, 8*40, 64, 40);
         g.drawImage(this.subImg, (int) xDelta, (int) yDelta, 128, 80, this);     
 
     }

@@ -54,6 +54,12 @@ public class PanelGame extends JPanel
             img = ImageIO.read(is);
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                is.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         

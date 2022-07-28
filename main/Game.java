@@ -1,6 +1,6 @@
 package main;
 
-import java.text.NumberFormat.Style;
+
 
 public class Game implements Runnable
 {
@@ -9,6 +9,7 @@ public class Game implements Runnable
     private Thread    gameThread;
 
     private final int FPS_SET = 120;
+    private final int UPS_SET = 200;
 
 
     public Game() 
@@ -28,16 +29,26 @@ public class Game implements Runnable
     @Override
     public void run() 
     {
-        double timePerFrame = 1_000_000_000.0 / FPS_SET;
+        double timePerFrame  = 1_000_000_000.0 / FPS_SET;
+        double timePerUpdate = 1_000_000_000.0 / UPS_SET;
+
         long lastFrame = System.nanoTime();
         long now = System.nanoTime();
+        
+        long previousTime = System.nanoTime();
 
         int frames = 0;
+        int updates = 0;
+
+        double deltaU = 0;
+
         long lastCheck = System.currentTimeMillis();
 
         while(true)
         {
             now = System.nanoTime();
+            long currentTime = System.nanoTime();
+
             if(now - lastFrame >= timePerFrame)
             {
                 panelGame.repaint();

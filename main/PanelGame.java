@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.Buffer;
+
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -25,7 +25,12 @@ public class PanelGame extends JPanel
     private float yDelta = 100;
 
     private BufferedImage img;
-    private BufferedImage[] idleAnim;
+    private BufferedImage[][] animations;
+   
+    private int aniTick;
+    private int aniIndex;
+    private int aniSpeed = 15;
+
  
 
     public PanelGame() 
@@ -49,9 +54,11 @@ public class PanelGame extends JPanel
 
     private void loadAnimations() 
     {
-        this.idleAnim = new BufferedImage[5];
+        this.animations = new BufferedImage[9][6];
 
-        for (int )
+        for (int j = 0; j < this.animations.length; j++ )
+            for (int i =0; i < this.animations[j].length; i++)
+                this.animations[j][i] = this.img.getSubimage(i*64, j*40, 64, 40);
     }
 
 
@@ -102,13 +109,29 @@ public class PanelGame extends JPanel
         this.yDelta = y;
     }
 
+    private void updateAnimationTick() 
+    {
+        aniTick++;
+        if(aniTick >= aniSpeed )
+        {
+            aniTick = 0;
+            aniIndex++;
+
+            if (aniIndex >= 6)
+            {
+                aniIndex = 0;
+            }
+        }
+    }
 
     public void paintComponent(Graphics g) 
     {
         super.paintComponent(g);
 
-        //this.subImg = this.img.getSubimage(1*64, 8*40, 64, 40);
-        g.drawImage(this.subImg, (int) xDelta, (int) yDelta, 128, 80, this);     
+        updateAnimationTick();
+
+        g.drawImage(this.animations[1][aniIndex], (int) xDelta, (int) yDelta, 128, 80, this);     
 
     }
+
 }

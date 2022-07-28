@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import inputs.KeyboardInputs;
 import inputs.MouseInputs;
 
+import static utilz.Constants.PlayerConstants.*;
 
 
 
@@ -30,6 +31,8 @@ public class PanelGame extends JPanel
     private int aniTick;
     private int aniIndex;
     private int aniSpeed = 15;
+
+    private int playerAction = IDLE;
 
  
 
@@ -117,7 +120,7 @@ public class PanelGame extends JPanel
             aniTick = 0;
             aniIndex++;
 
-            if (aniIndex >= 6)
+            if (aniIndex >= GetSpritAmount(playerAction))
             {
                 aniIndex = 0;
             }
@@ -130,7 +133,7 @@ public class PanelGame extends JPanel
 
         updateAnimationTick();
 
-        g.drawImage(this.animations[1][aniIndex], (int) xDelta, (int) yDelta, 128, 80, this);     
+        g.drawImage(this.animations[playerAction][aniIndex], (int) xDelta, (int) yDelta, 128, 80, this);     
 
     }
 

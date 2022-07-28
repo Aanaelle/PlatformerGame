@@ -15,6 +15,7 @@ import inputs.KeyboardInputs;
 import inputs.MouseInputs;
 
 import static utilz.Constants.PlayerConstants.*;
+import static utilz.Constants.Directions.*;
 
 
 
@@ -33,6 +34,8 @@ public class PanelGame extends JPanel
     private int aniSpeed = 15;
 
     private int playerAction = IDLE;
+    private int playerDir = -1;
+    private boolean moving = false;
 
  
 
@@ -95,21 +98,15 @@ public class PanelGame extends JPanel
         setMaximumSize(size);
     }
 
-    //méthode pour modifié les coordonnées du rectangle
-    public void changeXDelta(int value)
+    public void setDirection(int direction)
     {
-        this.xDelta += value;
+        this.playerDir = direction;
+        this.moving = true;
     }
 
-    public void changeYDelta(int value)
+    public void setMoving(boolean moving)
     {
-        this.yDelta += value;
-    }
-
-    public void setRectPos(int x, int y)
-    {
-        this.xDelta = x;
-        this.yDelta = y;
+        this.moving = moving;
     }
 
     private void updateAnimationTick() 
@@ -127,14 +124,51 @@ public class PanelGame extends JPanel
         }
     }
 
+    private void setAnimation() 
+    {
+        if(moving)
+            this.playerAction = RUNNING;
+        else 
+            this.playerAction = IDLE;
+    }
+
+    
+    private void updatePos() 
+    {
+        if(moving)
+        {
+            switch(this.playerDir)
+            {
+                case LEFT:
+                    xDelta -= 5;
+                    break;
+                case UP:
+                    yDelta -= 5;
+                    break;
+                case RIGHT:
+                    xDelta += 5;
+                    break;
+                case DOWN:
+                    yDelta +=5;
+                    break;
+            }
+        }
+    }
+
+
+
     public void paintComponent(Graphics g) 
     {
         super.paintComponent(g);
 
         updateAnimationTick();
 
-        g.drawImage(this.animations[playerAction][aniIndex], (int) xDelta, (int) yDelta, 128, 80, this);     
+        setAnimation();
+        updatePos();
+        
+        g.drawImage(this.animations[playerAction][aniIndex], (int) xDelta, (int) yDelta, 256, 160, this);     
 
     }
+
 
 }

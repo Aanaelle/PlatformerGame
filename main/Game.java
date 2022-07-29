@@ -1,6 +1,8 @@
 package main;
 
+import entities.Player;
 
+import java.awt.Graphics;
 
 public class Game implements Runnable
 {
@@ -11,13 +13,21 @@ public class Game implements Runnable
     private final int FPS_SET = 120;
     private final int UPS_SET = 200;
 
+    private Player player;
+
 
     public Game() 
     {
-        this.panelGame = new PanelGame();
+        this.initClasses();
+        this.panelGame = new PanelGame(this);
         this.frameGame = new FrameGame(this.panelGame);
         this.panelGame.requestFocus();
         this.startGameLoop();
+    }
+
+    private void initClasses() 
+    {
+        this.player = new Player(200, 200);
     }
 
     private void startGameLoop()
@@ -28,7 +38,12 @@ public class Game implements Runnable
 
     public void update()
     {
-        panelGame.updateGame();
+        this.player.update();
+    }
+
+    public void render(Graphics g)
+    {
+        player.render(g);
     }
 
     @Override
@@ -80,4 +95,10 @@ public class Game implements Runnable
 
         }        
     }
+
+    public Player getPlayer()
+    {
+        return this.player;
+    }
+
 }

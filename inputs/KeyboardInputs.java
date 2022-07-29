@@ -31,10 +31,16 @@ public class KeyboardInputs implements KeyListener
         switch (e.getKeyCode()) 
         {
             case KeyEvent.VK_Z:
+                panelGame.getGame().getPlayer().setUp(false);
+                break;
             case KeyEvent.VK_S:
+                panelGame.getGame().getPlayer().setDown(false);
+                break;
             case KeyEvent.VK_D:
+                panelGame.getGame().getPlayer().setRight(false);
+                break;
             case KeyEvent.VK_Q:
-                panelGame.setMoving(false);
+                panelGame.getGame().getPlayer().setLeft(false);
                 break;
         }
         
@@ -46,16 +52,16 @@ public class KeyboardInputs implements KeyListener
         switch (e.getKeyCode()) 
         {
             case KeyEvent.VK_Z:
-                this.panelGame.setDirection(UP);
+                panelGame.getGame().getPlayer().setUp(true);
                 break;
             case KeyEvent.VK_S:
-                this.panelGame.setDirection(DOWN);
+                panelGame.getGame().getPlayer().setDown(true);
                 break;
             case KeyEvent.VK_D:
-                this.panelGame.setDirection(RIGHT);
+                panelGame.getGame().getPlayer().setRight(true);
                 break;
             case KeyEvent.VK_Q:
-                this.panelGame.setDirection(LEFT);
+                panelGame.getGame().getPlayer().setLeft(true);
                 break;
         }
 

@@ -6,6 +6,8 @@ import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 
+import utilz.LoadSave;
+
 import static utilz.Constants.PlayerConstants.*;
 import static utilz.Constants.Directions.*;
 
@@ -120,26 +122,16 @@ public class Player extends Entity
 
     private void loadAnimations() 
     {
-        InputStream is = getClass().getResourceAsStream("/res/player_sprites.png");
+		BufferedImage img = LoadSave.getSpriteAtlas(LoadSave.PLAYER_ATLAS);
+		
+		this.animations = new BufferedImage[9][6];
+		
+		for (int j = 0; j < this.animations.length; j++ )
+		    for (int i =0; i < this.animations[j].length; i++)
+		        this.animations[j][i] = img.getSubimage(i*64, j*40, 64, 40);
 
-        try {
-            BufferedImage img = ImageIO.read(is);
-
-            this.animations = new BufferedImage[9][6];
-
-            for (int j = 0; j < this.animations.length; j++ )
-                for (int i =0; i < this.animations[j].length; i++)
-                    this.animations[j][i] = img.getSubimage(i*64, j*40, 64, 40);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                is.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+       
+        
         
     
     }

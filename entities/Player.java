@@ -21,10 +21,12 @@ public class Player extends Entity
 
     private int playerAction = IDLE;
     private boolean moving = false;
+    
     private boolean left;
     private boolean up;
     private boolean right;
     private boolean down;
+    private float   playerSpeed = 2.0f;
     
     public Player(float x, float y)
     {
@@ -43,8 +45,6 @@ public class Player extends Entity
     {
         g.drawImage(animations[playerAction][aniIndex], (int) x, (int) y, 256, 160, null);     
     }
-
-
 
     private void updateAnimationTick() 
     {
@@ -72,7 +72,34 @@ public class Player extends Entity
     
     private void updatePos() 
     {
-       
+        moving = false;
+        
+        //verifie si on appuie pas sur deux touches en même temps
+        //left and right
+        if(left && !right)
+        {
+            x-= playerSpeed;
+            moving = true;
+        }
+        else if (right && !left)
+        {
+            x+= playerSpeed;
+            moving = true;
+        }
+
+        //up and down
+        if(up && !down)
+        {
+            y-= playerSpeed;
+            moving = true;
+        }
+        else if (down && !up)
+        {
+            y+= playerSpeed;
+            moving = true;
+        }
+
+            
     }
 
     private void loadAnimations() 
@@ -99,6 +126,15 @@ public class Player extends Entity
         }
         
     
+    }
+    
+    public void resetDirBooleans()
+    {
+    	this.left  = false;
+    	this.right = false;
+    	this.up    = false;
+    	this.down  = false;
+    	
     }
 
     //getteurs

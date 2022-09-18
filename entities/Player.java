@@ -21,7 +21,7 @@ public class Player extends Entity
 
     private int playerAction = IDLE;
     private boolean moving = false;
-    
+    private boolean attacking = false;
     private boolean left;
     private boolean up;
     private boolean right;
@@ -56,21 +56,37 @@ public class Player extends Entity
 
             if (aniIndex >= GetSpritAmount(playerAction))
             {
-                aniIndex = 0;
+                aniIndex  = 0;
+                attacking = false;
             }
         }
     }
 
     private void setAnimation() 
     {
+    	
+    	int startAni = playerAction;
+    	
         if(moving)
             this.playerAction = RUNNING;
         else 
             this.playerAction = IDLE;
+        
+        if(attacking)
+        	this.playerAction = ATTACK_1;
+        
+        if (startAni != playerAction)
+        	resetAniTick();
     }
 
     
-    private void updatePos() 
+    private void resetAniTick() {
+		aniTick = 0;
+		aniIndex = 0;
+		
+	}
+
+	private void updatePos() 
     {
         moving = false;
         
@@ -138,16 +154,19 @@ public class Player extends Entity
     }
 
     //getteurs
-    public boolean getLeft()  { return this.left;  }
-    public boolean getUp()    { return this.up;    }
-    public boolean getRight() { return this.right; }
-    public boolean getDown()  { return this.down;  }
+    public boolean getLeft()      { return this.left;  }
+    public boolean getUp()        { return this.up;    }
+    public boolean getRight()     { return this.right; }
+    public boolean getDown()      { return this.down;  }
+    public boolean getAttacking() {return attacking;   }
+
 
     //setteurs
-    public void setLeft(boolean left)   { this.left = left;   }
-    public void setUp(boolean up)       { this.up = up;       }
-    public void setRight(boolean right) { this.right = right; }
-    public void setDown(boolean down)   { this.down = down;   }
+    public void setLeft(boolean left)           { this.left = left;   }
+    public void setUp(boolean up)               { this.up = up;       }
+    public void setRight(boolean right)         { this.right = right; }
+    public void setDown(boolean down)           { this.down = down;   }
+	public void setAttacking(boolean attacking) { this.attacking = attacking; }
 
     
 

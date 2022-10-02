@@ -9,6 +9,7 @@ import javax.imageio.ImageIO;
 public class LoadSave {
 	
 	public static final String PLAYER_ATLAS = "res/player_sprites.png";
+	public static final String LEVEL_ATLAS  = "res/outside_sprites.png";
 	
 	public static BufferedImage getSpriteAtlas(String fileName)
 	{

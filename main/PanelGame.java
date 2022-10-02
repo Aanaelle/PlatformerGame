@@ -8,6 +8,9 @@ import javax.swing.JPanel;
 import inputs.KeyboardInputs;
 import inputs.MouseInputs;
 
+import static main.Game.GAME_HEIGHT;
+import static main.Game.GAME_WIDTH;
+
 
 
 public class PanelGame extends JPanel 
@@ -34,11 +37,10 @@ public class PanelGame extends JPanel
     // gérer la taille de la frame par rapport à l'image
     private void setPanelSize() 
     {
-        Dimension size = new Dimension(1280, 800);
+        Dimension size = new Dimension(GAME_WIDTH, GAME_HEIGHT);
 
-        setMinimumSize(size);
         setPreferredSize(size);
-        setMaximumSize(size);
+        System.out.println("size : " + GAME_WIDTH + " : " +  GAME_HEIGHT);
     }
 
     public void updateGame() 

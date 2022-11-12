@@ -13,4 +13,9 @@ public class Level {
 	{
 		return this.lvlData[y][x];
 	}
+	
+	public int[][] getLevelData()
+	{
+		return this.lvlData;
+	}
 }

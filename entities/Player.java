@@ -38,13 +38,15 @@ public class Player extends Entity
     public void update()
     {
         updatePos();
+        updateHitBox();
         updateAnimationTick();
         setAnimation();
     }
 
     public void render(Graphics g)
     {
-        g.drawImage(animations[playerAction][aniIndex], (int) x, (int) y, width, height, null);     
+        g.drawImage(animations[playerAction][aniIndex], (int) x, (int) y, width, height, null);
+        drawHitBox(g);
     }
 
     private void updateAnimationTick() 

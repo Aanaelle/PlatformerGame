@@ -7,6 +7,7 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 
 import utilz.LoadSave;
+import static utilz.HelpMethods.CanMoveHere;
 
 import static utilz.Constants.PlayerConstants.*;
 import static utilz.Constants.Directions.*;
@@ -93,32 +94,32 @@ public class Player extends Entity
 	private void updatePos() 
     {
         moving = false;
+        if(!left && !right && !up && !down)
+        	return;
         
-        //verifie si on appuie pas sur deux touches en mÃªme temps
+        float xSpeed = 0, ySpeed = 0;
+        
+        
+        
+        //verifie si on appuie pas sur deux touches en même temps
         //left and right
         if(left && !right)
-        {
-            x-= playerSpeed;
-            moving = true;
-        }
+            xSpeed = -playerSpeed;
         else if (right && !left)
-        {
-            x+= playerSpeed;
-            moving = true;
-        }
-
+        	xSpeed = playerSpeed;
+   
         //up and down
         if(up && !down)
-        {
-            y-= playerSpeed;
-            moving = true;
-        }
+        	ySpeed = -playerSpeed;
         else if (down && !up)
+        	ySpeed = playerSpeed;
+ 
+        if(CanMoveHere(x+xSpeed, y+ySpeed, width, height, lvlData))
         {
-            y+= playerSpeed;
-            moving = true;
+        	this.x += xSpeed;
+        	this.y += ySpeed;
+        	moving = true;
         }
-
             
     }
 
